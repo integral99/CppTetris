@@ -5,7 +5,7 @@
 class GameManager {
 private:
 	
-	bool gameBoard[16][10];
+	bool gameBoard[16][10] = { 0 };
 	std::queue<Tetrimino*> nextQueue;
 	int score;
 	void DisplayBoard();
