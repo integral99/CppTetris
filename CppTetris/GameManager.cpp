@@ -15,9 +15,10 @@ GameManager::~GameManager() {
 
 void GameManager::DisplayBoard() {
 	using namespace std;
+	ios_base::sync_with_stdio(false);
 	system("cls");
-	cout << "Next is : " << nextQueue.front()->GetTypeInString() << endl;
-	cout << "----------------------" << endl;
+	cout << "Next is : " << nextQueue.front()->GetTypeInString() << "\n";
+	cout << "----------------------\n";
 	for (int i = 0; i < 16; i++) {
 		cout << "|";
 		for (int j = 0; j < 10; j++) {
@@ -28,21 +29,23 @@ void GameManager::DisplayBoard() {
 				cout << "  ";
 			}
 		}
-		cout << "|" << endl;
+		cout << "|\n";
 	}
-	cout << "----------------------" << endl;
+	cout << "----------------------\n";
 
+	cout.flush();
 	return;
 }
+
 void GameManager::MainLogicLoop() {
 	while (true) {
-		
+		currentMino = nextQueue.front();
 		nextQueue.pop();
 		nextQueue.push(Tetrimino::GetNewRandomTetrimino());
 		
 		DisplayBoard();
 
-		Sleep(1000);
+		std::cout << GetUserInput();
 	}
 }
 
@@ -56,3 +59,27 @@ void GameManager::StartGame() {
 	MainLogicLoop();
 }
 
+UserInput GameManager::GetUserInput() {
+	UserInput toReturnInput = UserInput(EMPTY);
+
+	if(GetAsyncKeyState(VK_UP)) {
+		toReturnInput = UserInput(UP);
+	}
+	else if (GetAsyncKeyState(VK_DOWN)) {
+		toReturnInput = UserInput(DOWN);
+	}
+	else if (GetAsyncKeyState(VK_LEFT)) {
+		toReturnInput = UserInput(LEFT);
+	}
+	else if (GetAsyncKeyState(VK_RIGHT)) {
+		toReturnInput = UserInput(RIGHT);
+	}
+	else if (GetAsyncKeyState('Z')) {
+		toReturnInput = UserInput(COUNTERCLOCEWISEROT);
+	}
+	else if (GetAsyncKeyState('X')) {
+		toReturnInput = UserInput(CLOCKWISEROT);
+	}
+
+	return toReturnInput;
+}

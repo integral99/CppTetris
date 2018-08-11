@@ -26,9 +26,11 @@ public:
 
 	static Tetrimino* GetNewRandomTetrimino() {
 		Tetrimino* toReturnTetrimino = new Tetrimino();
+
 		toReturnTetrimino->type = TetriminoType(rand() % 7);
 		toReturnTetrimino->xCoordinate = 0;
 		toReturnTetrimino->yCoordinate = 0;
+
 		return toReturnTetrimino;
 	}
 
