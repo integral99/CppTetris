@@ -15,14 +15,16 @@ enum UserInput {
 
 class GameManager {
 private:
-	
-	bool gameBoard[16][10] = { 0 };
+	const double minoDescendingInterval = 0.7;
+	bool gameBoard[16][10] = { 1, 1, 1, 1,};
 	Tetrimino* currentMino;
 	std::queue<Tetrimino*> nextQueue;
 	int score;
 	void DisplayBoard();
+	//bool EvaluateCurrentMino(int, int);
 	void MainLogicLoop();
 	UserInput GetUserInput();
+	void HandleUserInput(UserInput);
 
 public:
 	GameManager();

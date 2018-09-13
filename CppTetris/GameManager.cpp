@@ -15,14 +15,13 @@ GameManager::~GameManager() {
 
 void GameManager::DisplayBoard() {
 	using namespace std;
-	ios_base::sync_with_stdio(false);
 	system("cls");
 	cout << "Next is : " << nextQueue.front()->GetTypeInString() << "\n";
 	cout << "----------------------\n";
 	for (int i = 0; i < 16; i++) {
 		cout << "|";
 		for (int j = 0; j < 10; j++) {
-			if (gameBoard[i][j]) {
+			if (gameBoard[i][j] ) {
 				cout << "[]";
 			}
 			else {
@@ -38,14 +37,31 @@ void GameManager::DisplayBoard() {
 }
 
 void GameManager::MainLogicLoop() {
+	clock_t frameTimeChecker;
+	clock_t minoDescendChecker = clock();
+
+
+	currentMino = nextQueue.front();
+	nextQueue.pop();
+	nextQueue.push(Tetrimino::GetNewRandomTetrimino());
+	currentMino->xCoordinate = 4;
+	currentMino->yCoordinate = 0;
 	while (true) {
-		currentMino = nextQueue.front();
-		nextQueue.pop();
-		nextQueue.push(Tetrimino::GetNewRandomTetrimino());
+		frameTimeChecker = clock();
 		
+
 		DisplayBoard();
 
-		std::cout << GetUserInput();
+		std::cout << GetUserInput() << "\n";
+
+		if ((double)(clock() - minoDescendChecker) / CLOCKS_PER_SEC > minoDescendingInterval) {
+			minoDescendChecker = clock();
+			currentMino->yCoordinate--;
+			std::cout << "descend!\n";
+		}
+		while ((double)(clock() - frameTimeChecker) / CLOCKS_PER_SEC < 0.016) {
+
+		}
 	}
 }
 
@@ -83,3 +99,69 @@ UserInput GameManager::GetUserInput() {
 
 	return toReturnInput;
 }
+
+void GameManager::HandleUserInput(UserInput input) {
+	if (input == UserInput(LEFT)) {
+		
+	}
+}
+
+//bool GameManager::EvaluateCurrentMino(int x, int y) {
+//	switch (currentMino->GetType) {
+//	case TetriminoType(I):
+//		switch (currentMino->GetRotation) {
+//		case RotationStatus(NETURAL):
+//		case RotationStatus(CW):
+//		case RotationStatus(CCW):
+//		case RotationStatus(OPPOSITE):
+//		}
+//	case TetriminoType(J):
+//
+//		switch (currentMino->GetRotation) {
+//		case RotationStatus(NETURAL):
+//		case RotationStatus(CW):
+//		case RotationStatus(CCW):
+//		case RotationStatus(OPPOSITE):
+//		}
+//	case TetriminoType(L):
+//
+//		switch (currentMino->GetRotation) {
+//		case RotationStatus(NETURAL):
+//		case RotationStatus(CW):
+//		case RotationStatus(CCW):
+//		case RotationStatus(OPPOSITE):
+//		}
+//	case TetriminoType(S):
+//		
+//		switch (currentMino->GetRotation) {
+//		case RotationStatus(NETURAL):
+//		case RotationStatus(CW):
+//		case RotationStatus(CCW):
+//		case RotationStatus(OPPOSITE):
+//		}
+//	case TetriminoType(Z):
+//
+//		switch (currentMino->GetRotation) {
+//		case RotationStatus(NETURAL):
+//		case RotationStatus(CW):
+//		case RotationStatus(CCW):
+//		case RotationStatus(OPPOSITE):
+//		}
+//	case TetriminoType(O):
+//
+//		switch (currentMino->GetRotation) {
+//		case RotationStatus(NETURAL):
+//		case RotationStatus(CW):
+//		case RotationStatus(CCW):
+//		case RotationStatus(OPPOSITE):
+//		}
+//	case TetriminoType(T):
+//
+//		switch (currentMino->GetRotation) {
+//		case RotationStatus(NETURAL):
+//		case RotationStatus(CW):
+//		case RotationStatus(CCW):
+//		case RotationStatus(OPPOSITE):
+//		}
+//	}
+//}

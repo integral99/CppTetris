@@ -41,3 +41,37 @@ std::string Tetrimino::GetTypeInString() {
 	}
 	return strToReturn;
 }
+
+void Tetrimino::RotateCW() {
+	if (rotation == RotationStatus(NETURAL)) {
+		rotation = RotationStatus(CW);
+	}
+	else if (rotation == RotationStatus(CW)) {
+		rotation = RotationStatus(OPPOSITE);
+	}
+	else if (rotation == RotationStatus(OPPOSITE)) {
+		rotation = RotationStatus(CCW);
+	}
+	else if (rotation == RotationStatus(CCW)) {
+		rotation = RotationStatus(NETURAL);
+	}
+}
+
+void Tetrimino::RotateCCW() {
+	if (rotation == RotationStatus(NETURAL)) {
+		rotation = RotationStatus(CCW);
+	}
+	else if (rotation == RotationStatus(CCW)) {
+		rotation = RotationStatus(OPPOSITE);
+	}
+	else if (rotation == RotationStatus(OPPOSITE)) {
+		rotation = RotationStatus(CW);
+	}
+	else if (rotation == RotationStatus(CW)) {
+		rotation = RotationStatus(NETURAL);
+	}
+}
+
+TetriminoType Tetrimino::GetType() {
+	return type;
+}

@@ -13,12 +13,21 @@ enum TetriminoType {
 	T
 };
 
+enum RotationStatus {
+	NETURAL,
+	CW,
+	CCW,
+	OPPOSITE
+};
 class Tetrimino
 {
 private:
-public:
+
+	RotationStatus rotation;
 
 	TetriminoType type;
+public:
+
 	int xCoordinate;
 	int yCoordinate;
 	Tetrimino();
@@ -35,5 +44,9 @@ public:
 	}
 
 	std::string GetTypeInString();
+	void RotateCW();
+	void RotateCCW();
+	RotationStatus GetRotation();
+	TetriminoType GetType();
 };
 
